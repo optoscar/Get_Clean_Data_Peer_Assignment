@@ -34,7 +34,7 @@ names(y_train) <- "activity"
 names(x_train) <- feat_names$V2
 
 # join subjectid, actividy and features
-data_train <- cbind.data.frame(subject_test,y_test,x_test)
+data_train <- cbind.data.frame(subject_train,y_train,x_train)
 
 # read subject ids
 id_test <- unique(subject_test)
@@ -49,28 +49,15 @@ data <- rbind.data.frame(data_test,data_train)
 rm("data_test","data_train","subject_test","subject_train","x_test","x_train","y_test","y_train","id_test","id_train")
 
 
-#-------------------------------------------------------------------------------------------
-# 2. Extracts only the measurements on the mean and standard deviation for each measurement. 
-#-------------------------------------------------------------------------------------------
-# find those features on mean()
-mean_i <- grep("mean\\(\\)",feat_names$V2)
-# find those features on std()
-std_i <- grep("std\\(\\)",feat_names$V2)
-# sum 2 to take into account subjectid and activity rows added to the data set
-data2 <- data[,c(1,2,mean_i,std_i)]
 
 
-# adding subject ids to data sets
-x_test <- cbind.data.frame(y_test,x_test)
-x_train <- cbind.data.frame(y_train,x_train)
-
-# merging train and test data sets
-data <- rbind.data.frame(x_test,x_train)
 
 
-## Reading train data
-# set of 561 features calculated from the raw data
-train_body_acc_x <- read.table("../UCI HAR Dataset/train/Inertial Signals/body_acc_x_train.txt")
 
-## read the features labels
-feat_lables <- read.table("../UCI HAR Dataset/features.txt")
+
+
+
+
+
+
+
