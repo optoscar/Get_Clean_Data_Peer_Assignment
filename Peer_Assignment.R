@@ -49,15 +49,15 @@ data <- rbind.data.frame(data_test,data_train)
 rm("data_test","data_train","subject_test","subject_train","x_test","x_train","y_test","y_train","id_test","id_train")
 
 
+#-------------------------------------------------------------------------------------------
+# 2. Extracts only the measurements on the mean and standard deviation for each measurement. 
+#-------------------------------------------------------------------------------------------
+# find those features on mean()
+mean_i <- grep("mean\\(\\)",feat_names$V2)
+# find those features on std()
+std_i <- grep("std\\(\\)",feat_names$V2)
+# sum 2 to take into account subjectid and activity rows added to the data set
+data <- data[,c(1,2,mean_i,std_i)]
 
-
-
-
-
-
-
-
-
-
-
+rm("mean_i","std_i")
 
