@@ -56,8 +56,22 @@ rm("data_test","data_train","subject_test","subject_train","x_test","x_train","y
 mean_i <- grep("mean\\(\\)",feat_names$V2)
 # find those features on std()
 std_i <- grep("std\\(\\)",feat_names$V2)
+# sum 2 to mean_i and std_i to take into account added subjectid and activity columns
+mean_i <- mean_i + 2
+std_i <- std_i + 2
 # sum 2 to take into account subjectid and activity rows added to the data set
 data <- data[,c(1,2,mean_i,std_i)]
 
 rm("mean_i","std_i")
+
+
+
+
+
+
+
+
+
+
+
 
