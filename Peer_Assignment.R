@@ -64,14 +64,16 @@ data <- data[,c(1,2,mean_i,std_i)]
 
 rm("mean_i","std_i")
 
-
-
-
-
-
-
-
-
-
-
+#-------------------------------------------------------------------------------------------
+# 3. Uses descriptive activity names to name the activities in the data set
+#-------------------------------------------------------------------------------------------
+##read labels
+act_labels <- read.table("../UCI HAR Dataset/activity_labels.txt")
+activity <- data$activity
+activity <- factor(activity, labels=act_labels$V2)
+data$activity <- factor(data$activity, labels=act_labels$V2)
+## check labeling
+str(data$activity)
+head(data$activity)
+str(activity)
 
