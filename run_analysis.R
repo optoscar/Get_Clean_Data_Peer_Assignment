@@ -123,3 +123,4 @@ rm("sdata","rn","cn","subjects","act_labels","act_labels2")
 # write tidy to a ".txt" file (in CSV format)
 write.csv(tidy, file="tidy.txt")
 
+
