@@ -62,18 +62,58 @@ std_i <- std_i + 2
 # sum 2 to take into account subjectid and activity rows added to the data set
 data <- data[,c(1,2,mean_i,std_i)]
 
-rm("mean_i","std_i")
+# tidying up features names, removing "()" and "-"
+feat_names <- names(data)
+feat_names <- gsub("[\\-]","",feat_names)
+feat_names <- gsub("[\\(\\)]","",feat_names)
+names(data) <- feat_names
+rm("mean_i","std_i","feat_names")
 
 #-------------------------------------------------------------------------------------------
 # 3. Uses descriptive activity names to name the activities in the data set
 #-------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------
+# 4. Appropriately labels the data set with descriptive activity names.
+#-------------------------------------------------------------------------------------------
 ##read labels
 act_labels <- read.table("../UCI HAR Dataset/activity_labels.txt")
-activity <- data$activity
-activity <- factor(activity, labels=act_labels$V2)
 data$activity <- factor(data$activity, labels=act_labels$V2)
+data$subjectid <- factor(data$subjectid)
 ## check labeling
 str(data$activity)
 head(data$activity)
-str(activity)
 
+str(data$subjectid)
+head(data$subjectid)
+
+
+#-------------------------------------------------------------------------------------------
+# 5. Creates a second, independent tidy data set with the average of each variable for each activity and each subject.
+#-------------------------------------------------------------------------------------------
+## split the data base on subjectid and activity
+sdata <- split(data, data[,c('subjectid','activity')])
+## apply functions colMeans to all the elements in the lists and only to the features 3:68               
+tidy <- sapply(sdata,function(x)colMeans(x[,3:68]))
+
+## transpose the dataframe to
+# first remember the names
+rn <- row.names(tidy)
+cn <- colnames(tidy)
+# transpose all but the first column (name)
+tidy <- as.data.frame(t(tidy))
+row.names(tidy) <- cn
+colnames(tidy) <- rn
+
+## adding subjectid and activity columns to make it easier to understand and filter
+subjects <- rep(c(1:30),6)
+#read labels
+act_labels <- read.table("../UCI HAR Dataset/activity_labels.txt")
+# repeat them 30 times (one per user)
+act_labels2 <- rep(act_labels$V2[],30)
+# order the labels as stated in activity_labels.txt
+levels(act_labels2) <- act_labels$V2
+# order by labels
+act_labels2 <- act_labels2[order(act_labels2)]
+# add subjectid and activity columns to tidy data set
+tidy <- cbind(subjects,act_labels2,tidy)
+rm("sdata","rn","cn","subjects","act_labels","act_labels2")
