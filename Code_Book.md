@@ -1,7 +1,7 @@
 # Code Book for the data frames created with run_analysis.R
 
 ## Dataframe "data" created by the R script "run_analysis.R"
-The data dataframe created with run_analysis contains the following columns:
+The "data" dataframe created with ´run_analysis.R´ contains the following columns:
 * subjectsid			-> Indicates the subjectsid 
 * activity				-> Indicates the activity 
 
