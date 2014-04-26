@@ -1,6 +1,15 @@
 # Code Book for the data frames created with run_analysis.R
 
+The R script "run_analysis.R" create two dataframes from the original data: "data" and "tidy" dataframes.
+
+The first one contains the features selected (mean and std features) plus two rows indicating the subjectid and the activity.
+
+The characters "()" and "-" has been removed from the original feature names to be more friendly names. The descriptions can be found at the original "features_info.txt" file in the compressed file with the data.
+
+Following the columns included at the dataframes are listed.
+
 ## Dataframe "data" created by the R script "run_analysis.R"
+
 The "data" dataframe created with ´run_analysis.R´ contains the following columns:
 * subjectsid			-> Indicates the subjectsid 
 * activity				-> Indicates the activity 
@@ -151,5 +160,5 @@ The following columns are the features extracted (on the mean and the standard d
 * fBodyBodyGyroMagstd
 * fBodyBodyGyroJerkMagstd
 
-The characters "()" and "-" has been removed to be more friendly names. The descriptions can be found at the original "features_info.txt" file in the compressed file with the data.
+
 
