@@ -95,12 +95,13 @@ sdata <- split(data, data[,c('subjectid','activity')])
 ## apply functions colMeans to all the elements in the lists and only to the features 3:68               
 tidy <- sapply(sdata,function(x)colMeans(x[,3:68]))
 
-## transpose the dataframe to
-# first remember the names
+## transpose the dataframe to have the features as columns, and the grouping as rows
+# first remember the names for columns and rows
 rn <- row.names(tidy)
 cn <- colnames(tidy)
-# transpose all but the first column (name)
+# transpose 
 tidy <- as.data.frame(t(tidy))
+# set rows and columns names back
 row.names(tidy) <- cn
 colnames(tidy) <- rn
 
@@ -116,4 +117,9 @@ levels(act_labels2) <- act_labels$V2
 act_labels2 <- act_labels2[order(act_labels2)]
 # add subjectid and activity columns to tidy data set
 tidy <- cbind(subjects,act_labels2,tidy)
+# clean aux variables
 rm("sdata","rn","cn","subjects","act_labels","act_labels2")
+
+# write tidy to a ".txt" file (in CSV format)
+write.csv(tidy, file="tidy.txt")
+
